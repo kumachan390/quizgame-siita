@@ -1,0 +1,572 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Noto+Sans+JP:wght@100..900&family=Yuji+Boku&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kosugi+Maru&family=Noto+Sans+JP:wght@100..900&family=Yuji+Boku&display=swap');
+
+.dala-gothic-one-regular {
+    font-family: 'Dela Gothic One', sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.kosugi-maru-regular {
+    font-family: "Kosugi Maru", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid #333; */
+    font-family: "Kosugi Maru", sans-serif;
+    user-select: none;
+}
+
+body {
+    font-family: sans-serif;
+    text-align: center;
+    background-color: #cdd;
+    background-image: url(socialStudies/bg_himawari_hatake.jpg);
+    background-size: cover;
+    background-position: 90%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#titleScreen {
+    position: relative;
+    /* margin-top: 100px; */
+    background-color: #00000074;
+    width: 100%;
+    height: 100%;
+}
+
+.makimono-base {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+}
+
+#titleText {
+    position: relative;
+    top: 42%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 25px;
+    color: #333;
+    background-color: #ffffffc1;
+    width: 37%;
+    height: 25%;
+    border-radius: 15px;
+    padding: 10px 18px 18px 18px;
+}
+
+#titleText p {
+    margin-top: 20px;
+    font-size: 25px;
+}
+
+#titleScreen button {
+    position: relative;
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 24px;
+    background: none;
+    border: none;
+    color: #333;
+}
+
+#titleScreen button:disabled {
+    color: #aaa;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* 押されたボタン（選ばれたボタン）だけ色を維持 */
+#titleScreen button.selected:disabled {
+    color: #ff0000;
+    opacity: 1;
+    font-weight: bold;
+    cursor: default;
+}
+
+#titleScreen button:nth-of-type(2),
+#titleScreen button:nth-of-type(3) {
+    margin-left: 60px;
+}
+
+.load {
+    display: none;
+    position: absolute;
+    bottom: 46.5%;
+    right: 33%;
+    color: #333;
+    font-size: 23px;
+    animation: blink 2s step-start infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+.shuriken-stamp {
+    position: absolute;
+    z-index: 9999;
+    pointer-events: none;
+    animation: shurikenPop 0.5s ease, shurikenFade 0s ease 0.5s forwards;
+    z-index: 100;
+    opacity: 0.5;
+}
+
+@keyframes shurikenPop {
+    0% {
+        transform: scale(0);
+        /* transform: scale(0) rotate(0deg); */
+        /* opacity: 0; */
+    }
+
+    50% {
+        transform: scale(1.2);
+        /* transform: scale(1.2) rotate(180deg); */
+        /* opacity: 1; */
+    }
+
+    100% {
+        transform: scale(1);
+        /* transform: scale(1) rotate(360deg); */
+        /* opacity: 1; */
+    }
+}
+
+@keyframes shurikenFade {
+    to {
+        opacity: 1;
+    }
+}
+
+#game {
+    display: flex;
+}
+
+#timer {
+    font-size: 50px;
+    display: none;
+}
+
+#quiz-board {
+    position: relative;
+    margin-left: 100px;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 2;
+}
+
+#quiz-base {
+    display: none;
+    position: absolute;
+    top: 17%;
+    left: 7%;
+    width: 850px;
+    height: 550px;
+    background-color: #fff;
+    border: 10px solid #333;
+    border-radius: 15px;
+    z-index: 1;
+}
+
+/* .quiz-img {
+    position: absolute;
+    top: 5%;
+    left: 26%;
+    width: 45%;
+    height: auto;
+} */
+
+.quiz-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quiz-img {
+    width: auto;
+    height: 450px;
+}
+
+.quiz-label {
+    margin-top: 8px;
+    font-size: 50px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#game-board {
+    /* width: 50%; */
+    margin: 20px 100px;
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
+    gap: 5px;
+    background-color: #ffffffd7;
+}
+
+.board.easy {
+    /* width: calc(150px * 3); */
+    grid-template-columns: repeat(3, 150px);
+}
+
+.board.normal {
+    /* width: calc(120px * 4); */
+    grid-template-columns: repeat(4, 120px);
+}
+
+.board.hard {
+    /* width: calc(100px * 5); */
+    grid-template-columns: repeat(5, 100px);
+}
+
+.card {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    cursor: pointer;
+    background-size: cover;
+    background-position: center;
+    border: 2px solid #999;
+}
+
+.card.easy {
+    width: 150px;
+    height: 150px;
+}
+
+.card.normal {
+    width: 120px;
+    height: 120px;
+}
+
+.card.hard {
+    width: 100px;
+    height: 100px;
+}
+
+.card-image {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 0.2s;
+}
+
+.card.hidden {
+    background-image: none;
+    background-color: #ccc;
+    cursor: default;
+}
+
+.card.hidden .card-image {
+    opacity: 0;
+}
+
+@keyframes flash {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.flash {
+    animation: flash 0.4s ease-in-out infinite;
+}
+
+#clearedArea {
+    display: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 14vh;
+    width: 80vw;
+    max-width: 1200px;
+    gap: 30px;
+    padding: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border: 2px solid #999;
+    z-index: 100;
+    user-select: none;
+    pointer-events: none;
+}
+
+.cleared-image {
+    height: auto;
+    max-height: 100%;
+    max-width: 120px;
+    object-fit: contain;
+}
+
+#gameClearScreen,
+#gameOverScreen {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    color: #222;
+    z-index: 10;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 27px;
+}
+
+#clearMessage {
+    margin-top: 20px;
+    border: 2px solid #333;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    color: #333;
+}
+
+#gameClearScreen.active,
+#gameOverScreen.active {
+    display: flex;
+}
+
+#gameClearScreen button,
+#gameOverScreen button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 18px;
+    background-color: #fff;
+    border-radius: 10px;
+    transition: background-color .2s;
+}
+
+#gameClearScreen button:hover,
+#gameOverScreen button:hover {
+    background-color: #ddd;
+}
+
+/* 共通設定（位置・アニメーションなど） */
+#medalDisplay {
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 190px;
+    color: white;
+    background: transparent;
+    animation: popMedal 0.6s ease, glowFilter 1s infinite alternate;
+    z-index: 20;
+    pointer-events: none;
+}
+
+/* 金メダル */
+.gold-medal {
+    filter:
+        drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px gold) drop-shadow(0 0 12px orange) drop-shadow(0 0 16px yellow);
+}
+
+/* 銀メダル */
+.silver-medal {
+    filter:
+        drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px #ccc) drop-shadow(0 0 12px #aaa) drop-shadow(0 0 16px #eee);
+}
+
+/* 銅メダル */
+.bronze-medal {
+    filter:
+        drop-shadow(0 0 4px #fff) drop-shadow(0 0 8px #cd7f32) drop-shadow(0 0 12px #b87333) drop-shadow(0 0 16px #f4a460);
+}
+
+/* ポップアニメーション */
+@keyframes popMedal {
+    0% {
+        transform: translateX(-50%) scale(0);
+        opacity: 0;
+    }
+
+    60% {
+        transform: translateX(-50%) scale(1.2);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* グローアニメーション（ベース） */
+@keyframes glowFilter {
+    0% {
+        opacity: 0.85;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes wrong-shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    20% {
+        transform: translateX(-10px);
+    }
+
+    40% {
+        transform: translateX(10px);
+    }
+
+    60% {
+        transform: translateX(-8px);
+    }
+
+    80% {
+        transform: translateX(8px);
+    }
+}
+
+@keyframes wrong-flash {
+
+    0%,
+    100% {
+        filter: none;
+    }
+
+    50% {
+        filter: brightness(1.5) sepia(1) hue-rotate(-30deg) saturate(8);
+    }
+}
+
+.card-image.wrong {
+    animation: wrong-shake 0.4s ease, wrong-flash 0.4s ease;
+}
+
+@media (min-width:1300px) and (max-width:1500px) {
+    #titleText {
+        width: 50%;
+        height: 35%;
+    }
+
+    .load {
+        bottom: 42%;
+        right: 26%;
+        color: #333;
+    }
+
+    #quiz-base {
+        width: 650px;
+        height: 390px;
+    }
+
+    .quiz-img {
+        width: auto;
+        height: 300px;
+    }
+
+    #game-board {
+        margin: 50px 100px;
+        display: grid;
+        gap: 5px;
+        background-color: #ffffffd7;
+    }
+
+    .board.easy {
+        /* width: calc(120px * 4); */
+        grid-template-columns: repeat(4, 120px);
+    }
+
+    .board.normal {
+        /* width: calc(90px * 5); */
+        grid-template-columns: repeat(5, 90px);
+    }
+
+    .board.hard {
+        /* width: calc(75px * 6); */
+        grid-template-columns: repeat(6, 75px);
+    }
+
+    .card.easy {
+        width: 100px;
+        height: 100px;
+    }
+
+    .card.normal {
+        width: 90px;
+        height: 90px;
+    }
+
+    .card.hard {
+        width: 75px;
+        height: 75px;
+    }
+
+    #gameClearScreen h2 {
+        color: #222;
+        z-index: 10;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        margin-top: 100px;
+        font-size: 33px;
+    }
+
+    #clearMessage {
+        margin-top: 20px;
+        border: 2px solid #333;
+        background-color: #fff;
+        padding: 10px;
+        border-radius: 10px;
+        color: #333;
+    }
+
+    #gameClearScreen button,
+    #gameOverScreen button {
+        margin-top: 15px;
+        padding: 10px 20px;
+        font-size: 15px;
+        background-color: #fff;
+        border-radius: 10px;
+        transition: background-color .2s;
+    }
+
+    #medalDisplay {
+        position: absolute;
+        top: 8%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 160px;
+        color: white;
+        background: transparent;
+        animation: popMedal 0.6s ease, glowFilter 1s infinite alternate;
+        z-index: 20;
+        pointer-events: none;
+    }
+}

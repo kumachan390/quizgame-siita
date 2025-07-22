@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="socialStudies/japan.ico">
+    <link rel="stylesheet" href="style.css">
+    <title>地図記号クイズ</title>
+</head>
+
+<body>
+    <div id="titleScreen">
+        <!-- <img class="makimono-base" src="images/makimono_yoko.png" alt=""> -->
+        <div id="titleText">
+            <h1>&#x1f30f;地図記号クイズ&#x1f30f;</h1>
+            <p>レベルをえらんでね</p>
+            <button onclick="startGame('easy', this)">かんたん</button>
+            <button onclick="startGame('normal', this)">ふつう</button>
+            <button onclick="startGame('hard', this)">むずかしい</button>
+        </div>
+        <p class="load">Loading...</p>
+    </div>
+
+    <div id="gameScreen">
+        <p id="timer">00:00</p>
+        <div id="game">
+            <div id="quiz-board"></div>
+            <div id="quiz-base"></div>
+            <div id="game-board"></div>
+        </div>
+    </div>
+    <div id="clearedArea"></div>
+
+    <div id="gameClearScreen">
+        <div id="medalDisplay"></div>
+        <h2>&#x1f389;クリア！</h2>
+        <p id="clearMessage">クリアタイム：00:00</p>
+        <button onclick="returnToTitle()">タイトルへ</button>
+    </div>
+    <div id="gameOverScreen">
+        <h2>&#9200;時間切れ！</h2>
+        <p>またチャレンジしてね！</p>
+        <button onclick="returnToTitle()">タイトルへ</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
